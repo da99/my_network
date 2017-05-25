@@ -12,7 +12,7 @@ speeds () {
 
   local +x ONE="$TMP_DIR/1.txt"
 
-  if my_fs is-older-than 2 "$ONE" ; then
+  if test -f "$ONE" && my_fs is-older-than 2 "$ONE" ; then
     rm -f "$ONE"
   fi
 
