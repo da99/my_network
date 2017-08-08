@@ -23,7 +23,6 @@ case $ACTION in
     FUNC_FILE="$THIS_DIR/bin/public/${ACTION}/_.sh"
 
     if [[ -s  "$FUNC_FILE"  ]]; then
-
       export THIS_FILE="$FUNC_FILE"
       export THIS_FUNC="$ACTION"
       export THIS_FUNC_DIR="$THIS_DIR/bin/public/${ACTION}"
