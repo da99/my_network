@@ -3,7 +3,7 @@
 #
 
 inspect () {
-  local +x HEADERS="$(curl --silent -I $@)"
+  local +x HEADERS="$(curl --silent -i $@)"
   if echo "$HEADERS" | grep -P "HTTP/... 2.." &>/dev/null ; then
     sh_color GREEN "{{$@}}"
   else
@@ -15,6 +15,4 @@ inspect () {
   fi
 
   echo "$HEADERS"
-  curl $@
-  echo
 } # inspect ()
