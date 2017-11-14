@@ -10,6 +10,7 @@ if [[ ! -z "$@" ]]; then
 fi
 
 set -u -e -o pipefail
+PATH="$PATH:$THIS_DIR/bin"
 PATH="$PATH:$THIS_DIR/../sh_color/bin"
 
 case $ACTION in

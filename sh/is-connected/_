@@ -1,19 +1,27 @@
 #!/usr/bin/env zsh
 #
 #
+# === {{CMD}}
 # === {{CMD}} watch
 #
 
-local +x ACTION="$1"; shift
+if [[ -z "$@" ]]; then
+  local +x ACTION="default"
+else
+  local +x ACTION="$1"; shift
+fi
 
 case "$ACTION" in
+  default)
+    ping 8.8.4.4 -c 1 -w 2 &>/dev/null
+    ;;
+
   watch)
-    while ! ping 8.8.4.4 -c 1 -w 2 &>/dev/null; do
+    while ! my_network is-connected; do
       echo -n "."
       sleep 2
     done
     echo
     sh_color GREEN "=== {{Connected}} to the Internet. ==="
     ;;
-
 esac
