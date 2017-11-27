@@ -22,7 +22,7 @@ case "$ACTION" in
       sleep 2
     done
     echo
-    mpv "$THIS_DIR"/solemn.ogg &>/dev/null
     sh_color GREEN "=== {{Connected}} to the Internet. ==="
+    mpv "$THIS_DIR"/solemn.ogg &>/dev/null
     ;;
 esac
