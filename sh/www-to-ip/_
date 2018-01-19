@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+#
+# === {{CMD}} domain
+#
+set -u -e -o pipefail
+
+local +x name="$1"; shift
+local +x IP="$(ping -c1 "$name"  | head -n 1 | tr '()' '|' | cut -d'|' -f2)"
+
+if [[ -z "$IP" ]]; then
+  exit 2
+fi
+
+curl -i "$IP"
+echo "$IP"
