@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
 #
 #
-THE_ARGS="$@"
-THIS_DIR="$(dirname "$(dirname "$(realpath "$0")")")"
+local +x THE_ARGS="$@"
+local +x THIS_DIR="$(dirname "$(dirname "$(realpath "$0")")")"
 
-ACTION="[none]"
+local +x ACTION="[none]"
 if [[ ! -z "$@" ]]; then
   ACTION="$1"; shift
 fi
