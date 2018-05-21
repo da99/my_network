@@ -17,12 +17,13 @@ case "$ACTION" in
     ;;
 
   watch)
+    date +"%c"
     while ! my_network is-connected; do
       echo -n "."
       sleep 2
     done
     echo
-    sh_color GREEN "=== {{Connected}} to the Internet. ==="
+    sh_color GREEN "=== {{Connected}} to the Internet: $(date +"%c") ==="
     mpv "$THIS_DIR"/solemn.ogg &>/dev/null
     ;;
 esac
