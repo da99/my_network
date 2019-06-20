@@ -13,7 +13,7 @@ fi
 
 case "$ACTION" in
   default)
-    ping 8.8.4.4 -c 1 -w 2 &>/dev/null
+    ping google.com -c 1 -w 2 &>/dev/null
     ;;
 
   watch)
