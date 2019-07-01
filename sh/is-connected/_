@@ -17,15 +17,23 @@ case "$ACTION" in
     ping 8.8.8.8 -c 1 -w 9 &>/dev/null
     ;;
 
+  ipv4)
+    ping -4 8.8.8.8 -c 1 -w 3 &>/dev/null
+    ;;
+
+  ipv6)
+    ping -6 google.com -c 1 -w 3 &>/dev/null
+    ;;
+
   --verbose)
     local +x IS_CONN="yes"
-    if ping -6 google.com -c 1 -w 9 &>/dev/null ; then
+    if my_network is-connected ipv6 ; then
       echo "=== ipv6 up"
     else
       echo "!   ipv6 down"
       IS_CONN="no"
     fi
-    if ping -4 8.8.8.8 -c 1 -w 9 &>/dev/null ; then
+    if my_network is-connected ipv4 ; then
       echo "=== ipv4 up"
     else
       echo "!   ipv4 down"
@@ -40,12 +48,29 @@ case "$ACTION" in
   watch)
     date +"%c"
     my_network is-connected --verbose || :
-    while ! my_network is-connected; do
-      echo -n "."
-      sleep 2
+    local +x is_conn="yes"
+    while true ; do
+      if my_network is-connected ipv6 ; then
+        echo -n "."
+      else
+        echo -n "x"
+        is_conn="no"
+      fi
+      if my_network is-connected ipv4 ; then
+        echo -n "."
+      else
+        echo -n "x"
+        is_conn="no"
+      fi
+      if test "$is_conn" = "yes" ; then
+        echo ""
+        sh_color GREEN "=== {{Connected}} to the Internet: $(date +"%c") ==="
+        mpv "$THIS_DIR"/solemn.ogg &>/dev/null
+        exit 0
+      else
+        echo -n " "
+        sleep 2
+      fi
     done
-    echo
-    sh_color GREEN "=== {{Connected}} to the Internet: $(date +"%c") ==="
-    mpv "$THIS_DIR"/solemn.ogg &>/dev/null
     ;;
 esac
