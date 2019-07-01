@@ -13,11 +13,33 @@ fi
 
 case "$ACTION" in
   default)
-    ping google.com -c 1 -w 2 &>/dev/null
+    ping google.com -c 1 -w 9 &>/dev/null
+    ping 8.8.8.8 -c 1 -w 9 &>/dev/null
+    ;;
+
+  --verbose)
+    local +x IS_CONN="yes"
+    if ping -6 google.com -c 1 -w 9 &>/dev/null ; then
+      echo "=== ipv6 up"
+    else
+      echo "!   ipv6 down"
+      IS_CONN="no"
+    fi
+    if ping -4 8.8.8.8 -c 1 -w 9 &>/dev/null ; then
+      echo "=== ipv4 up"
+    else
+      echo "!   ipv4 down"
+      IS_CONN="no"
+    fi
+    if test "$IS_CONN" = "yes" ; then
+      exit 0
+    fi
+    exit 1
     ;;
 
   watch)
     date +"%c"
+    my_network is-connected --verbose || :
     while ! my_network is-connected; do
       echo -n "."
       sleep 2
