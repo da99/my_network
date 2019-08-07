@@ -1,0 +1,33 @@
+#!/usr/bin/env zsh
+#
+# === {{CMD}}
+#
+set -u -e -o pipefail
+
+local +x ORIGINAL_ARGS="$@"
+
+if [[ -z "$@" ]]; then
+  local +x ACTION="default"
+else
+  local +x ACTION="$1"; shift
+fi
+
+case "$ACTION" in
+  default)
+    lynx --dump | grep -Pi 'AM|PM'
+    ;;
+
+  run)
+    reset
+    mkdir -p tmp/in tmp/out
+    cd "$THIS_DIR"
+    sh_color RED "!!! {{specs run}} not implemented"
+    exit 1
+    ;;
+  *)
+    echo "!!! Unknown arguments: $ORIGINAL_ARGS" >&2
+    exit 1
+    ;;
+
+esac
+

@@ -16,8 +16,8 @@ PATH="$PATH:$THIS_DIR/../sh_color/bin"
 case $ACTION in
 
   help|--help|-h)
-    PATH="$PATH:$THIS_DIR/../mksh_setup/bin"
-    mksh_setup print-help $0 "$@"
+    PATH="$PATH:$THIS_DIR/../my_zsh/bin"
+    my_zsh print-help $0 "$@"
     ;;
 
   *)
